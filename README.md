@@ -1,5 +1,6 @@
 # nest_dashboard_api
 
+
 NestJS starter project with TypeORM configuration for PostgreSQL and in-memory mock data.
 
 ## Setup (local PostgreSQL)
