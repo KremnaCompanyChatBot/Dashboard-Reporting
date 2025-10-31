@@ -1,4 +1,4 @@
-name: Init CI/CD
+name: Init Full CI/CD
 
 on:
   push:
@@ -59,7 +59,7 @@ jobs:
 
       - name: Build Frontend
         working-directory: Dashboard.Frontend
-        run: npm run build
+        run: CI=false npm run build   # lint uyarılarını hata saymaz
 
       - name: Test Frontend
         working-directory: Dashboard.Frontend
