@@ -1,80 +1,75 @@
 # Kremna Chatbot Dashboard & Reporting
 
 
-## 🎯 Amaç
-Bu proje, **Kremna Chatbot** sisteminin etkileşim, performans ve kullanıcı verilerini izlemek, analiz etmek ve raporlamak amacıyla geliştirilmiştir.  
-Amaç; chatbot operasyonlarının durumunu görünür kılmak, kullanıcı davranışlarını anlamlandırmak ve veri odaklı karar desteği sağlamaktır.
+## 🎯 Purpose
+This project was developed to monitor, analyze, and report on the interaction, performance, and user data of the **Kremna Chatbot** system.  
+The goal is to make the status of chatbot operations visible, understand user behavior, and provide data-driven decision support.
 
 ---
 
-## 🧩 Genel Bakış
-**Kremna Chatbot Dashboard & Reporting**, chatbot sistemlerinden gelen verileri toplayan, işleyen ve görselleştiren bir web panelidir.  
-Backend katmanı NestJS tabanlıdır, Frontend katmanı React ve TypeScript ile geliştirilmiştir.  
-Gerçek zamanlı (realtime) altyapı farklı bir takım tarafından yönetilmekte olup bu proje kapsamı dışındadır.
+## 🧩 Overview
+**Kremna Chatbot Dashboard & Reporting**, It is a web panel that collects, processes, and visualizes data from chatbot systems.  
+The backend layer is based on NestJS, while the frontend layer is developed using React and TypeScript.  
+The real-time infrastructure is managed by a different team and is outside the scope of this project.
 
 ---
 
-## 🏗️ Mimari
+## 🏗️ Architecture
 
-| Katman | Teknoloji | Açıklama |
+| Layer | Technology | Description |
 |--------|------------|----------|
-| **Backend** | NestJS (TypeScript) | REST API, veri erişim katmanı, servis yapısı |
-| **Frontend** | React + TypeScript | Dashboard arayüzü, kullanıcı etkileşimi |
-| **Database** | PostgreSQL | Veritabanı |
-| **Auth** | JWT | Kimlik doğrulama |
-| **Containerization** | Docker & docker-compose | Ortam bağımsız çalışma |
+| **Backend** | NestJS (TypeScript) | REST API, data access layer, service architecture |
+| **Frontend** | React + TypeScript | Dashboard interface, user interaction |
+| **Database** | PostgreSQL | Database |
+| **Auth** | JWT | Authentication |
+| **Containerization** | Docker & docker-compose | Environment-independent operation |
 
 ---
 
-## ⚙️ Özellikler
-- Chatbot konuşma sayıları ve dağılımları  
-- Kanal bazlı performans (Web, WhatsApp, Telegram vb.)  
-- Niyet (Intent) analizi ve fallback oranları  
-- Kullanıcı davranış analitiği  
-- Dashboard widget sistemi (grafikler, tablolar, KPI kartları)  
-- Rapor dışa aktarma (Excel, PDF)  
-- Rol bazlı erişim (Admin, Analyst, Operator)  
-- Modern ve responsive kullanıcı arayüzü  
+## ⚙️ Features  
+- Chatbot conversation counts and distributions  
+- Channel-based performance (Web, WhatsApp, Telegram, etc.)  
+- Intent analysis and fallback rates  
+- User behavior analytics  
+- Dashboard widget system (graphs, tables, KPI cards)  
+- Report export (Excel, PDF)  
+- Role-based access (Admin, Analyst, Operator)  
+- Modern and responsive user interface  
 
 ---
 
-## 🚀 Kurulum
+## 🚀 Installation
 
-### Gereksinimler
+### Requirements
 - [Node.js 18+](https://nodejs.org)
-- PostgreSQL (lokal veya container)
+- PostgreSQL (local or container)
 
-### Adımlar
+### Steps
 
 #### 
 ```bash
-1. Reponun klonlanması
+1. Cloning the repository
 git clone https://github.com/KremnaCompanyChatBot/Dashboard-Reporting.git
 cd Dashboard-Reporting
 git checkout release/KREM-229
 
-2. Backend kurulumu
-cd backend
-npm install
-npm run start:dev
-
-3. Frontend kurulumu
-cd ../frontend
-npm install
-npm start
-
-🐳 Docker ile çalıştırma
-
-Tüm servisi container ortamında ayağa kaldırmak için:
+2. Backend setup    
+cd backend    
+npm install    
+npm run start:dev    
+    
+3. Frontend setup    
+cd ../frontend    
+npm install    
+npm start    
+    
+🐳 Running with Docker    
+    
+To run the entire service in a container environment:
 
 docker-compose up --build
 
-Servis	Port	Açıklama
-Frontend	3000	React dashboard
-Backend	4000	NestJS API
-PostgreSQL	5432	Veritabanı
-
-🔧 Yapılandırma
+🔧 Inftastructure
 Backend .env
 DATABASE_URL=postgresql://user:password@localhost:5432/dashboard
 JWT_SECRET=your-jwt-secret
@@ -86,14 +81,14 @@ REACT_APP_API_URL=http://localhost:4000
 REACT_APP_ENV=development
 
 
-🧪 Test & CI/CD
-Testler
+🧪 Testing & CI/CD
+Tests
 
 Backend: Nest.js
 
-Frontend: React.js 
+Frontend: React.js
 
-Test komutu:
+Test command:
 
 npm run test
 
@@ -103,35 +98,35 @@ GitHub Actions pipeline:
 
 Test
 Build & Dockerize
-Deploy (manuel onay ile)
+Deploy (with manual approval)
 
-📊 Raporlama Modülleri
+📊 Reporting Modules
 
-Overview Dashboard: Genel metrikler (aktif kullanıcı, mesaj hacmi, ortalama yanıt süresi)
-User Insights: Kullanıcı aktivite trendleri
-Channel Reports: Kanal bazlı etkileşim raporları
+Overview Dashboard: General metrics (active users, message volume, average response time)
+User Insights: User activity trends
+Channel Reports: Channel-based interaction reports
 
 
-👨‍💻 Katkı Rehberi
+👨‍💻 Contribution Guide
 
-Yeni özellik için dal oluştur:
+Create a branch for the new feature:
 
-git checkout -b feature/<özellik-adı>
+git checkout -b feature/<feature-name>
 
-Testleri çalıştır:
+Run tests:
 
 npm run test
-PR açıklamasında değişiklik amacını açıkla.
-Kod gözden geçirme (review) sonrası merge yapılır.
+Explain the purpose of the change in the PR description.
+Merge after code review.
 
-🪪 Lisans
+🪪 License
 
-Bu proje Kremna Company’ye aittir.
-Tüm hakları saklıdır.
+This project belongs to Kremna Company.
+All rights reserved.
 
-📫 İletişim
+📫 Contact
 
 Project Management: suaybdemir1@gmail.com
 
-Not: Gerçek zamanlı (Realtime) mesajlaşma ve olay yayınlama altyapısı bu repo kapsamı dışındadır.
-Bu repository yalnızca dashboard ve raporlama fonksiyonlarını içerir.
+Note: The real-time messaging and event publishing infrastructure is outside the scope of this repository.
+This repository only contains dashboard and reporting functions.
