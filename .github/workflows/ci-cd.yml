@@ -1,4 +1,4 @@
-name: Dashboard Full CI/CD
+name: Init CI/CD
 
 on:
   push:
@@ -17,13 +17,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      # === Backend (NestJS) ===
+      - name: Setup Node.js for Backend
         uses: actions/setup-node@v4
         with:
           node-version: '20.x'
           cache: 'npm'
+          cache-dependency-path: Dashboard.Backend/package-lock.json
 
-      # === Backend (NestJS) ===
       - name: Install Backend dependencies
         working-directory: Dashboard.Backend
         run: npm ci
@@ -41,6 +42,13 @@ jobs:
         run: npm run test --if-present
 
       # === Frontend (React / Next.js) ===
+      - name: Setup Node.js for Frontend
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+          cache-dependency-path: Dashboard.Frontend/package-lock.json
+
       - name: Install Frontend dependencies
         working-directory: Dashboard.Frontend
         run: npm ci
