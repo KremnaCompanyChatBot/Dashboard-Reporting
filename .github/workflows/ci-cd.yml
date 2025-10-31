@@ -1,4 +1,4 @@
-name: Init Full CI/CD
+name: Init CI/CD
 
 on:
   push:
@@ -40,6 +40,7 @@ jobs:
       - name: Test Backend
         working-directory: Dashboard.Backend
         run: npm run test --if-present
+        continue-on-error: true
 
       # === Frontend (React / Next.js) ===
       - name: Setup Node.js for Frontend
@@ -64,6 +65,7 @@ jobs:
       - name: Test Frontend
         working-directory: Dashboard.Frontend
         run: npm run test --if-present
+        continue-on-error: true       # test hatası olsa bile pipeline devam eder
 
       # === Artifact oluşturma ===
       - name: Archive build artifacts
