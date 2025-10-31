@@ -1,0 +1,68 @@
+name: Dashboard Full CI/CD
+
+on:
+  push:
+    branches:
+      - release/KREM-229
+  pull_request:
+    branches:
+      - release/KREM-229
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+          cache: 'npm'
+
+      # === Backend (NestJS) ===
+      - name: Install Backend dependencies
+        working-directory: Dashboard.Backend
+        run: npm ci
+
+      - name: Lint Backend
+        working-directory: Dashboard.Backend
+        run: npm run lint --if-present
+
+      - name: Build Backend
+        working-directory: Dashboard.Backend
+        run: npm run build
+
+      - name: Test Backend
+        working-directory: Dashboard.Backend
+        run: npm run test --if-present
+
+      # === Frontend (React / Next.js) ===
+      - name: Install Frontend dependencies
+        working-directory: Dashboard.Frontend
+        run: npm ci
+
+      - name: Lint Frontend
+        working-directory: Dashboard.Frontend
+        run: npm run lint --if-present
+
+      - name: Build Frontend
+        working-directory: Dashboard.Frontend
+        run: npm run build
+
+      - name: Test Frontend
+        working-directory: Dashboard.Frontend
+        run: npm run test --if-present
+
+      # === Artifact oluşturma ===
+      - name: Archive build artifacts
+        if: github.ref == 'refs/heads/release/KREM-229'
+        run: |
+          mkdir -p artifacts/backend artifacts/frontend
+          cp -r Dashboard.Backend/dist artifacts/backend/
+          cp -r Dashboard.Frontend/dist artifacts/frontend/
+          cp Dashboard.Backend/package*.json artifacts/backend/
+          cp Dashboard.Frontend/package*.json artifacts/frontend/
