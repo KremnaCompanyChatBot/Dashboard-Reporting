@@ -73,6 +73,6 @@ jobs:
         run: |
           mkdir -p artifacts/backend artifacts/frontend
           cp -r Dashboard.Backend/dist artifacts/backend/
-          cp -r Dashboard.Frontend/dist artifacts/frontend/
+          cp -r Dashboard.Frontend/build artifacts/frontend/
           cp Dashboard.Backend/package*.json artifacts/backend/
           cp Dashboard.Frontend/package*.json artifacts/frontend/
