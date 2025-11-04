@@ -21,6 +21,8 @@ NestJS starter project with TypeORM configuration for PostgreSQL and in-memory m
    npm run build
    npm start
    ```
+5. Postman Collection Dosyası(Tüm Endpointleri içerir): 
+   https://drive.google.com/file/d/1jLBlk9U1prXeUCivbZGX0xNSfBom91Uo/view?usp=sharing
 
 
 ## Gelecekte veritabanına geçiş
