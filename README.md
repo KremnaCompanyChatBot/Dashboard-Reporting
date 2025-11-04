@@ -22,9 +22,6 @@ NestJS starter project with TypeORM configuration for PostgreSQL and in-memory m
    npm start
    ```
 
-## Endpoint'ler
-- `GET /items` — Tüm item'ları döner (şimdilik mock in-memory).
-- `POST /items` — Yeni item ekler (JSON body: `{ "name": "Item", "price": 12.5 }`).
 
 ## Gelecekte veritabanına geçiş
 - `src/config/typeorm.config.ts` içinde TypeORM config hazır.

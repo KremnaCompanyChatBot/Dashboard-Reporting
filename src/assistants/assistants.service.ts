@@ -1,17 +1,38 @@
 import { Injectable } from '@nestjs/common';
-import * as fs from 'fs';
-import * as path from 'path';
+
+
+export interface Assistant {
+  assistantId: string;
+  name: string;
+}
 
 @Injectable()
 export class AssistantsService {
-  private data: any;
+  private assistants: Assistant[] = [
+    { assistantId: 'a1', name: 'AI Tarihçi' },
+    { assistantId: 'a2', name: 'AI Matematikçi' },
+    { assistantId: 'a3', name: 'AI Danışman' },
+  ];
 
-  constructor() {
-    const p = path.resolve(process.cwd(), 'mock-data.json');
-    this.data = JSON.parse(fs.readFileSync(p, 'utf8'));
+  getAll(): Assistant[] {
+    return this.assistants;
   }
 
-  findAll() {
-    return this.data.assistants || [];
+  create(assistant: Assistant) {
+    this.assistants.push(assistant);
+    return assistant;
+  }
+
+  update(assistantId: string, name: string) {
+    const assistant = this.assistants.find(a => a.assistantId === assistantId);
+    if (!assistant) return null;
+    assistant.name = name;
+    return assistant;
+  }
+
+  remove(assistantId: string) {
+    const index = this.assistants.findIndex(a => a.assistantId === assistantId);
+    if (index === -1) return null;
+    return this.assistants.splice(index, 1)[0];
   }
 }
