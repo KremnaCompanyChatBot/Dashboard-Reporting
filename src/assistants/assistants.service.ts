@@ -1,6 +1,5 @@
 import { Injectable } from '@nestjs/common';
 
-
 export interface Assistant {
   assistantId: string;
   name: string;
@@ -18,20 +17,28 @@ export class AssistantsService {
     return this.assistants;
   }
 
+  findById(assistantId: string): Assistant | undefined {
+    return this.assistants.find((a) => a.assistantId === assistantId);
+  }
+
   create(assistant: Assistant) {
     this.assistants.push(assistant);
     return assistant;
   }
 
   update(assistantId: string, name: string) {
-    const assistant = this.assistants.find(a => a.assistantId === assistantId);
+    const assistant = this.assistants.find(
+      (a) => a.assistantId === assistantId,
+    );
     if (!assistant) return null;
     assistant.name = name;
     return assistant;
   }
 
   remove(assistantId: string) {
-    const index = this.assistants.findIndex(a => a.assistantId === assistantId);
+    const index = this.assistants.findIndex(
+      (a) => a.assistantId === assistantId,
+    );
     if (index === -1) return null;
     return this.assistants.splice(index, 1)[0];
   }
