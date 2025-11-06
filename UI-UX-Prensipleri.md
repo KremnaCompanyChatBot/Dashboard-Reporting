@@ -64,4 +64,3 @@ Geliştirme sırasında dikkat edilmesi gereken kritik etkileşimler:
 \- Profil Menüsü: Sağ üstteki kullanıcı avatarına tıklandığında açılan menüde ikonlar bulunmalı.
 
   
-Bu rapor, geliştirme ekibine neyi, hangi görsel standartlarla ve hangi etkileşim detaylarıyla kodlamaları gerektiğini net bir şekilde gösterir. Gönderdiğiniz videodaki çıktı, bu raporda tanımlanan temel bileşenleri ve koyu tema uygulamasını başarılı bir şekilde yansıtmaktadır.
