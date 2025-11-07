@@ -1,4 +1,4 @@
-name: Init CI/CD
+name: CI/CD KREM-234-236
 
 on:
   push:
