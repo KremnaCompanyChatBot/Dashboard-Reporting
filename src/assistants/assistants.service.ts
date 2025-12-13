@@ -1,45 +1,45 @@
-import { Injectable } from '@nestjs/common';
-
-export interface Assistant {
-  assistantId: string;
-  name: string;
-}
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Assistant } from './assistant.entity';
 
 @Injectable()
 export class AssistantsService {
-  private assistants: Assistant[] = [
-    { assistantId: 'a1', name: 'AI Tarihçi' },
-    { assistantId: 'a2', name: 'AI Matematikçi' },
-    { assistantId: 'a3', name: 'AI Danışman' },
-  ];
+  constructor(
+    @InjectRepository(Assistant)
+    private assistantRepo: Repository<Assistant>,
+  ) {}
 
-  getAll(): Assistant[] {
-    return this.assistants;
+  // Tüm asistanları getir
+  async findAll() {
+    return await this.assistantRepo.find();
   }
 
-  findById(assistantId: string): Assistant | undefined {
-    return this.assistants.find((a) => a.assistantId === assistantId);
-  }
-
-  create(assistant: Assistant) {
-    this.assistants.push(assistant);
+  // ID'ye göre tek bir asistan getir
+  async findOne(id: string) {
+    const assistant = await this.assistantRepo.findOne({ where: { id } });
+    if (!assistant) {
+      throw new NotFoundException(`Assistant with ID ${id} not found`);
+    }
     return assistant;
   }
 
-  update(assistantId: string, name: string) {
-    const assistant = this.assistants.find(
-      (a) => a.assistantId === assistantId,
-    );
-    if (!assistant) return null;
-    assistant.name = name;
-    return assistant;
+  // Yeni asistan oluştur
+  async create(data: Partial<Assistant>) {
+    const newAssistant = this.assistantRepo.create(data);
+    return await this.assistantRepo.save(newAssistant);
   }
 
-  remove(assistantId: string) {
-    const index = this.assistants.findIndex(
-      (a) => a.assistantId === assistantId,
-    );
-    if (index === -1) return null;
-    return this.assistants.splice(index, 1)[0];
+  // Asistan güncelle
+  async update(id: string, attrs: Partial<Assistant>) {
+    const assistant = await this.findOne(id);
+    Object.assign(assistant, attrs);
+    return await this.assistantRepo.save(assistant);
+  }
+
+  // Asistan sil
+  async remove(id: string) {
+    const assistant = await this.findOne(id);
+    return await this.assistantRepo.remove(assistant);
   }
 }
