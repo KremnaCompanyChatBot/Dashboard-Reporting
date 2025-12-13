@@ -1,26 +1,29 @@
-import { Controller, Get, Param, Query } from '@nestjs/common';
+// src/chats/chats.controller.ts
+import { Controller, Get, Param } from '@nestjs/common';
 import { ChatsService } from './chats.service';
 
 @Controller('chats')
 export class ChatsController {
   constructor(private readonly chatsService: ChatsService) {}
 
+  // Tüm sohbet geçmişini getir
+  // GET /api/v1/chats
   @Get()
   findAll() {
     return this.chatsService.findAll();
   }
 
+  // Belirli bir asistanın sohbetlerini getir
+  // GET /api/v1/chats/assistant/:assistantId
   @Get('assistant/:assistantId')
-  findByAssistant(
-    @Param('assistantId') assistantId: string,
-    @Query('userId') userId?: string,
-  ) {
-    return this.chatsService.findByAssistant(assistantId, userId);
+  findByAssistant(@Param('assistantId') assistantId: string) {
+    return this.chatsService.findByAssistant(assistantId);
   }
-  
-  // Belirli bir chat'in mesajlarını API üzerinden çekmek gerekirse:
+
+  // Tek bir sohbetin mesajlarını getir
+  // GET /api/v1/chats/:id
   @Get(':id')
-  getChat(@Param('id') id: string) {
-    return this.chatsService.getChatWithMessages(id);
+  findOne(@Param('id') id: string) {
+    return this.chatsService.findByAssistant(id);
   }
 }

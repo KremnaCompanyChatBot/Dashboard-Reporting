@@ -1,19 +1,23 @@
-// backend/src/main.ts
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
+import * as dotenv from 'dotenv';
+
+dotenv.config();
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  // 1. Frontend'deki '/api/v1/...' isteklerine cevap verebilmek için prefix ekliyoruz
-  app.setGlobalPrefix('api/v1');
-
-  // 2. React projesinin (farklı portta) erişebilmesi için CORS'u açıyoruz
+  // CORS'u tam açıyoruz ki Widget ve Dashboard rahatça bağlansın
   app.enableCors({
-    origin: '*', // Güvenlik için prodüksiyonda frontend URL'i yazılır, şimdilik *
+    origin: '*', 
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
   });
 
-  await app.listen(3000);
+  // API prefix eklemek iyi bir pratiktir (Dashboard kodlarında /api/v1 kullanılıyorsa buraya ekle)
+  app.setGlobalPrefix('api/v1'); 
+
+  const port = process.env.PORT || 3000;
+  await app.listen(port);
+  console.log(`Backend Çalışıyor: http://localhost:${port}`);
 }
 bootstrap();

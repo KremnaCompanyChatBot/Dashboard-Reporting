@@ -1,19 +1,21 @@
-// src/chats/chats.module.ts
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ChatsService } from './chats.service';
 import { ChatsController } from './chats.controller';
-import { Chat } from './chat.entity';
-import { Message } from './message.entity';
-import { ChatsGateway } from './chats.gateway';
-import { AssistantsModule } from '../assistants/assistants.module';
+import { ChatsService } from './chats.service';
+import { ChatsGateway } from './chats.gateway'; // Birazdan oluşturacağız
+import { Chat } from './chat.entity';     // Entity dosyanın olduğu yol
+import { Message } from './message.entity'; // Entity dosyanın olduğu yol
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([Chat, Message]),
-    AssistantsModule
+    // Veritabanı tablolarını modüle tanıtıyoruz
+    TypeOrmModule.forFeature([Chat, Message]) 
   ],
   controllers: [ChatsController],
-  providers: [ChatsService, ChatsGateway], 
+  providers: [
+    ChatsService, 
+    ChatsGateway // WebSocket kapısını açıyoruz
+  ],
+  exports: [ChatsService] // Diğer modüller (örn: AI) kullanabilsin
 })
 export class ChatsModule {}
