@@ -26,4 +26,5 @@ export class ChatsController {
   findOne(@Param('id') id: string) {
     return this.chatsService.findByAssistant(id);
   }
+
 }
