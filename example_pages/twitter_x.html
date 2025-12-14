@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>X / Home</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+        body { background-color: #000000; color: #e7e9ea; display: flex; justify-content: center; height: 100vh; overflow-y: hidden; }
+        
+        /* Layout Grid */
+        .container { display: flex; width: 100%; max-width: 1265px; height: 100%; }
+        
+        /* --- SOL MENÜ --- */
+        .sidebar { width: 275px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; height: 100%; border-right: 1px solid #2f3336; }
+        .logo { font-size: 30px; margin-bottom: 20px; padding-left: 10px; color: #fff; }
+        .nav-item { display: flex; align-items: center; padding: 15px; font-size: 20px; cursor: pointer; border-radius: 30px; transition: 0.2s; width: fit-content; }
+        .nav-item:hover { background-color: rgba(231, 233, 234, 0.1); }
+        .nav-item i { margin-right: 20px; width: 25px; }
+        .nav-item span { font-weight: 400; }
+        .nav-item.active { font-weight: 700; }
+        .post-btn { background-color: #1d9bf0; color: white; border: none; padding: 15px; border-radius: 30px; font-size: 17px; font-weight: 700; width: 90%; margin-top: 20px; cursor: pointer; transition: 0.2s; }
+        .post-btn:hover { background-color: #1a8cd8; }
+        .profile-mini { display: flex; align-items: center; padding: 10px; margin-top: auto; border-radius: 50px; cursor: pointer; }
+        .profile-mini:hover { background-color: rgba(231, 233, 234, 0.1); }
+        .avatar { width: 40px; height: 40px; background-color: #333; border-radius: 50%; margin-right: 10px; }
+
+        /* --- ORTA AKIŞ --- */
+        .feed { width: 600px; border-right: 1px solid #2f3336; overflow-y: scroll; scrollbar-width: none; }
+        .feed::-webkit-scrollbar { display: none; }
+        .header { position: sticky; top: 0; background-color: rgba(0, 0, 0, 0.65); backdrop-filter: blur(12px); border-bottom: 1px solid #2f3336; z-index: 10; display: flex; justify-content: space-around; padding: 15px 0; font-weight: 700; cursor: pointer; }
+        .header-tab { position: relative; color: #71767b; }
+        .header-tab.active { color: #e7e9ea; }
+        .header-tab.active::after { content: ''; position: absolute; bottom: -15px; left: 0; width: 100%; height: 4px; background-color: #1d9bf0; border-radius: 2px; }
+        
+        .tweet-box { padding: 15px; border-bottom: 1px solid #2f3336; display: flex; gap: 10px; }
+        .tweet-input { flex: 1; background: transparent; border: none; color: #e7e9ea; font-size: 20px; outline: none; margin-top: 10px; resize: none; }
+        .tweet-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; padding-left: 50px; }
+        .icons i { color: #1d9bf0; margin-right: 15px; cursor: pointer; }
+        .mini-post-btn { background-color: #1d9bf0; color: white; border: none; padding: 8px 16px; border-radius: 20px; font-weight: 700; cursor: pointer; opacity: 0.5; }
+
+        .tweet { padding: 15px; border-bottom: 1px solid #2f3336; display: flex; gap: 10px; cursor: pointer; transition: 0.2s; }
+        .tweet:hover { background-color: rgba(255, 255, 255, 0.03); }
+        .tweet-content { flex: 1; }
+        .user-info { margin-bottom: 5px; }
+        .name { font-weight: 700; margin-right: 5px; }
+        .username { color: #71767b; }
+        .text { line-height: 1.5; margin-bottom: 10px; }
+        .tweet-stats { display: flex; justify-content: space-between; color: #71767b; font-size: 14px; max-width: 450px; }
+        .tweet-stats div:hover { color: #1d9bf0; }
+        .tweet-stats div.like:hover { color: #f91880; }
+        .tweet-stats div.retweet:hover { color: #00ba7c; }
+
+        /* --- SAĞ TARAF --- */
+        .widgets { width: 350px; padding: 20px 30px; display: none; margin-left: 10px; } 
+        @media (min-width: 1000px) { .widgets { display: block; } }
+        
+        .search-bar { background-color: #202327; padding: 10px 20px; border-radius: 30px; display: flex; align-items: center; margin-bottom: 20px; }
+        .search-bar input { background: transparent; border: none; color: #e7e9ea; margin-left: 10px; width: 100%; outline: none; }
+        .search-bar:focus-within { background-color: #000; border: 1px solid #1d9bf0; }
+
+        .premium-box, .trends-box { background-color: #16181c; border-radius: 16px; padding: 15px; margin-bottom: 20px; }
+        .box-title { font-size: 20px; font-weight: 800; margin-bottom: 10px; }
+        .subscribe-btn { background-color: #1d9bf0; color: white; border: none; padding: 10px 20px; border-radius: 20px; font-weight: 700; cursor: pointer; margin-top: 10px; }
+        
+        .trend-item { padding: 10px 0; cursor: pointer; }
+        .trend-meta { font-size: 13px; color: #71767b; }
+        .trend-name { font-weight: 700; margin: 2px 0; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <div class="sidebar">
+            <div>
+                <div class="logo"><i class="fa-brands fa-x-twitter"></i></div>
+                <div class="nav-item active"><i class="fa-solid fa-house"></i> <span>Home</span></div>
+                <div class="nav-item"><i class="fa-solid fa-magnifying-glass"></i> <span>Explore</span></div>
+                <div class="nav-item"><i class="fa-regular fa-bell"></i> <span>Notifications</span></div>
+                <div class="nav-item"><i class="fa-regular fa-envelope"></i> <span>Messages</span></div>
+                <div class="nav-item"><i class="fa-solid fa-bolt"></i> <span>Grok</span></div>
+                <div class="nav-item"><i class="fa-regular fa-user"></i> <span>Profile</span></div>
+                <div class="nav-item"><i class="fa-solid fa-ellipsis"></i> <span>More</span></div>
+                <button class="post-btn">Post</button>
+            </div>
+            <div class="profile-mini">
+                <div class="avatar" style="background: #1d9bf0;"></div>
+                <div style="margin-left: 10px;">
+                    <div style="font-weight: 700;">Furkan</div>
+                    <div style="color: #71767b;">@furkan</div>
+                </div>
+                <i class="fa-solid fa-ellipsis" style="margin-left: auto;"></i>
+            </div>
+        </div>
+
+        <div class="feed">
+            <div class="header">
+                <div class="header-tab active">For you</div>
+                <div class="header-tab">Following</div>
+            </div>
+
+            <div class="tweet-box">
+                <div class="avatar"></div>
+                <div style="flex: 1;">
+                    <textarea class="tweet-input" placeholder="What is happening?!" rows="2"></textarea>
+                    <div class="tweet-actions">
+                        <div class="icons">
+                            <i class="fa-regular fa-image"></i>
+                            <i class="fa-solid fa-gift"></i>
+                            <i class="fa-solid fa-list-ul"></i>
+                            <i class="fa-regular fa-face-smile"></i>
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+                        <button class="mini-post-btn">Post</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tweet">
+                <div class="avatar" style="background: #e0245e;"></div>
+                <div class="tweet-content">
+                    <div class="user-info">
+                        <span class="name">Elon Musk</span>
+                        <span class="username">@elonmusk · 2h</span>
+                    </div>
+                    <div class="text">
+                        Kremna AI is doing some interesting stuff. Might look into it. 🚀
+                    </div>
+                    <div class="tweet-stats">
+                        <div><i class="fa-regular fa-comment"></i> 4.2K</div>
+                        <div class="retweet"><i class="fa-solid fa-retweet"></i> 12K</div>
+                        <div class="like"><i class="fa-regular fa-heart"></i> 85K</div>
+                        <div><i class="fa-solid fa-chart-simple"></i> 22M</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tweet">
+                <div class="avatar" style="background: #ff7a00;"></div>
+                <div class="tweet-content">
+                    <div class="user-info">
+                        <span class="name">Tech Daily</span>
+                        <span class="username">@techdaily · 5h</span>
+                    </div>
+                    <div class="text">
+                        Yapay zeka asistanları artık web sitelerine saniyeler içinde entegre edilebiliyor. Kodlama bilgisi gerekmiyor. Gelecek burada. #AI #Tech
+                    </div>
+                    <div class="tweet-stats">
+                        <div><i class="fa-regular fa-comment"></i> 156</div>
+                        <div class="retweet"><i class="fa-solid fa-retweet"></i> 890</div>
+                        <div class="like"><i class="fa-regular fa-heart"></i> 3.4K</div>
+                        <div><i class="fa-solid fa-chart-simple"></i> 500K</div>
+                    </div>
+                </div>
+            </div>
+            
+             <div class="tweet">
+                <div class="avatar" style="background: purple;"></div>
+                <div class="tweet-content">
+                    <div class="user-info">
+                        <span class="name">Kremna Official</span>
+                        <span class="username">@kremna · 10m</span>
+                    </div>
+                    <div class="text">
+                        Premium destek hattımız artık aktif! Sağ alttaki butona tıklayarak 7/24 destek alabilirsiniz. Mavi tik başvuruları için asistanımıza danışın. ☑️
+                    </div>
+                    <div class="tweet-stats">
+                        <div><i class="fa-regular fa-comment"></i> 20</div>
+                        <div class="retweet"><i class="fa-solid fa-retweet"></i> 5</div>
+                        <div class="like"><i class="fa-regular fa-heart"></i> 100</div>
+                        <div><i class="fa-solid fa-chart-simple"></i> 1.2K</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="widgets">
+            <div class="search-bar">
+                <i class="fa-solid fa-magnifying-glass" style="color: #71767b;"></i>
+                <input type="text" placeholder="Search">
+            </div>
+
+            <div class="premium-box">
+                <div class="box-title">Subscribe to Premium</div>
+                <p style="margin-bottom: 10px; line-height: 1.3;">Subscribe to unlock new features and if eligible, receive a share of ads revenue.</p>
+                <button class="subscribe-btn">Subscribe</button>
+            </div>
+
+            <div class="trends-box">
+                <div class="box-title">What's happening</div>
+                
+                <div class="trend-item">
+                    <div class="trend-meta">Trending in Turkey</div>
+                    <div class="trend-name">#Yazılım</div>
+                    <div class="trend-meta">12.5K posts</div>
+                </div>
+
+                <div class="trend-item">
+                    <div class="trend-meta">Technology · Trending</div>
+                    <div class="trend-name">#OpenAI</div>
+                    <div class="trend-meta">150K posts</div>
+                </div>
+
+                <div class="trend-item">
+                    <div class="trend-meta">Business · Trending</div>
+                    <div class="trend-name">Kremna AI</div>
+                    <div class="trend-meta">5,432 posts</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script>
+  window.KREMNA_ASSISTANT_ID = "519e1fc4-5250-4739-a938-44bf2649b5bc";
+</script>
+<script src="http://localhost:5173/embed.js" async></script>
+
+</body>
+</html>
