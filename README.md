@@ -19,7 +19,7 @@ Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyi
 
 ### 2. Kurulum
 
-Bağımlılıkları yükleyin:
+Bağımlılıkları yükleyin: (her alt proje(chatbot_widget, dashboard_backend, dashboard_frontend) için ilgili klasör içinde npm install komutunu çalıştırın)
 
 ```bash
 npm install
