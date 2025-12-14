@@ -3,6 +3,11 @@
 Bu proje, Kremna AI Dashboard ve Widget uygulamaları için geliştirilmiş RESTful API ve WebSocket sunucusudur.  
 NestJS, TypeORM ve PostgreSQL altyapısını kullanır.
 
+## 🎥 Demo Video
+
+[![Dashboard Demo](https://drive.google.com/thumbnail?id=1TtlLu_RY8yJmJ6n0BA87wG-hk-nAH6Qh)](https://drive.google.com/file/d/1TtlLu_RY8yJmJ6n0BA87wG-hk-nAH6Qh/view)
+
+
 ## 🚀 Kurulum ve Çalıştırma
 
 Projeyi yerel ortamınızda çalıştırmak için aşağıdaki adımları izleyin.
