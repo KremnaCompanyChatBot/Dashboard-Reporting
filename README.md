@@ -1,6 +1,6 @@
-# Kremna AI - Dashboard Backend API
+# Kremna AI - Dashboard
 
-Bu proje, Kremna AI Dashboard ve Widget uygulamaları için geliştirilmiş RESTful API ve WebSocket sunucusudur.  
+Bu proje, Kremna AI Dashboard ve Widget uygulamaları için geliştirilmiş RESTful API ve WebSocket kullanan bir projedir.  
 NestJS, TypeORM ve PostgreSQL altyapısını kullanır.
 
 ## 🎥 Demo Video
@@ -23,6 +23,7 @@ Bağımlılıkları yükleyin:
 ```bash
 npm install
 ````
+# Kremna AI - Dashboard Backend API
 
 ### 3. Çevre Değişkenleri (.env)
 
