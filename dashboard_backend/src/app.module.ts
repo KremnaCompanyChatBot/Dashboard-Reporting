@@ -4,6 +4,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ChatsModule } from './chats/chats.module';
 import { AssistantsModule } from './assistants/assistants.module';
 import { AnalyticsModule } from './analytics/analytics.module';
+// --- YENİ EKLENENLER ---
+import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -20,7 +23,9 @@ import { AnalyticsModule } from './analytics/analytics.module';
     }),
     ChatsModule,
     AssistantsModule,
-    AnalyticsModule
+    AnalyticsModule,
+    UsersModule,
+    AuthModule
   ],
 })
 export class AppModule {}

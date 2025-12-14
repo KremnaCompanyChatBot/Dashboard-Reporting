@@ -87,7 +87,7 @@ export default function Home() {
           onClick={() => navigate("/analytics")} 
         />
         <StatCard 
-          title="Aktif Kullanıcı" 
+          title="Toplam Sohbet" 
           value={stats.activeUsers} 
           icon={<Activity size={24} />}
           colorClass="bg-purple-100 text-purple-600"

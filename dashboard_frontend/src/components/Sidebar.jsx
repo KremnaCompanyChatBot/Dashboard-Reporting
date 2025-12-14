@@ -1,62 +1,65 @@
-import React, { useContext } from "react";
-import { BarChart3, Home, Bot, Sun, Moon } from "lucide-react";
-import { NavLink } from "react-router-dom";
-import { ThemeContext } from "../context/ThemeContext";
+import { Link, useLocation, useNavigate } from "react-router-dom"; // useNavigate ekle
+import { LayoutDashboard, MessageSquare, PieChart, Settings, LogOut } from "lucide-react";
+import { useAuth } from "../context/AuthContext"; // <-- Auth Hook'unu çağır
 
-function Sidebar() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+export default function Sidebar() {
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth(); // <-- Logout fonksiyonunu al
+
+  // Çıkış Fonksiyonu
+  const handleLogout = () => {
+    if (window.confirm("Çıkış yapmak istediğinize emin misiniz?")) {
+      logout();
+      navigate("/login");
+    }
+  };
 
   const menuItems = [
-    { name: "Anasayfa", icon: <Home size={20} />, path: "/" },
-    { name: "Analytics", icon: <BarChart3 size={20} />, path: "/analytics" },
-    { name: "Asistanlar", icon: <Bot size={20} />, path: "/assistants" },
+    { path: "/", icon: <LayoutDashboard size={20} />, label: "Genel Bakış" },
+    { path: "/assistants", icon: <MessageSquare size={20} />, label: "Asistanlarım" },
+    { path: "/analytics", icon: <PieChart size={20} />, label: "Raporlar" },
   ];
 
   return (
-    <div className="h-screen bg-gray-900 dark:bg-gray-800 text-gray-100 w-64 flex flex-col fixed left-0 top-0 shadow-lg transition-colors duration-300">
-      {/* Üst kısım: logo + tema butonu */}
-      <div className="flex justify-between items-center p-4 border-b border-gray-700">
-        <div className="text-2xl font-bold text-blue-400">
-          Chatbot Dashboard
-        </div>
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-md hover:bg-gray-700 transition"
-        >
-          {theme === "light" ? (
-            <Moon size={20} className="text-gray-300" />
-          ) : (
-            <Sun size={20} className="text-yellow-400" />
-          )}
-        </button>
+    <div className="w-64 h-screen bg-white border-r border-gray-200 fixed left-0 top-0 flex flex-col">
+      <div className="p-6 border-b border-gray-100">
+        <h1 className="text-2xl font-bold text-blue-600 flex items-center gap-2">
+          <span className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm">K</span>
+          Kremna Dashboard
+        </h1>
       </div>
 
-      {/* Menü */}
-      <nav className="flex-1 p-4">
+      <nav className="flex-1 p-4 space-y-2">
         {menuItems.map((item) => (
-          <NavLink
-            key={item.name}
+          <Link
+            key={item.path}
             to={item.path}
-            className={({ isActive }) =>
-              `flex items-center gap-3 p-3 rounded-md mb-2 cursor-pointer transition ${
-                isActive
-                  ? "bg-blue-600 text-white"
-                  : "hover:bg-gray-800 hover:text-blue-300"
-              }`
-            }
+            className={`flex items-center gap-3 px-4 py-3 rounded-lg transition-colors ${
+              location.pathname === item.path
+                ? "bg-blue-50 text-blue-600 font-medium"
+                : "text-gray-600 hover:bg-gray-50"
+            }`}
           >
             {item.icon}
-            <span>{item.name}</span>
-          </NavLink>
+            {item.label}
+          </Link>
         ))}
       </nav>
 
-      {/* Alt bilgi */}
-      <div className="text-xs text-gray-500 text-center mb-3 border-t border-gray-700 pt-3">
-        © {new Date().getFullYear()} Chatbot Team
+      {/* ALT KISIM: ÇIKIŞ YAP */}
+      <div className="p-4 border-t border-gray-100">
+       
+        
+        {/* LOGOUT BUTONU */}
+        <button 
+          onClick={handleLogout} // <-- Tıklayınca çalışacak
+          className="flex items-center gap-3 px-4 py-3 text-red-600 hover:bg-red-50 rounded-lg w-full transition-colors"
+        >
+          <LogOut size={20} />
+          Çıkış Yap
+        </button>
       </div>
     </div>
   );
 }
-
-export default Sidebar;

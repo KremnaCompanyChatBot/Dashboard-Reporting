@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Assistant } from './assistant.entity';
@@ -10,36 +10,33 @@ export class AssistantsService {
     private assistantRepo: Repository<Assistant>,
   ) {}
 
-  // Tüm asistanları getir
-  async findAll() {
-    return await this.assistantRepo.find();
+  // Sadece o kullanıcının asistanlarını getir
+  async findAll(userId: string) {
+    return await this.assistantRepo.find({ where: { userId } });
   }
 
-  // ID'ye göre tek bir asistan getir
-  async findOne(id: string) {
-    const assistant = await this.assistantRepo.findOne({ where: { id } });
-    if (!assistant) {
-      throw new NotFoundException(`Assistant with ID ${id} not found`);
-    }
-    return assistant;
-  }
-
-  // Yeni asistan oluştur
-  async create(data: Partial<Assistant>) {
-    const newAssistant = this.assistantRepo.create(data);
+  // Oluştururken userId'yi de kaydet
+  async create(data: Partial<Assistant>, userId: string) {
+    const newAssistant = this.assistantRepo.create({ ...data, userId });
     return await this.assistantRepo.save(newAssistant);
   }
 
-  // Asistan güncelle
+  // Tekil getirmede de güvenlik kontrolü yapabilirsin (Opsiyonel ama iyi olur)
+  async findOne(id: string) {
+    return await this.assistantRepo.findOne({ where: { id }, relations: ['user'] });
+  }
+  
+  // Güncelleme ve silme için de userId kontrolü eklenebilir
+  async delete(id: string) {
+    return await this.assistantRepo.delete(id);
+  }
+  
   async update(id: string, attrs: Partial<Assistant>) {
     const assistant = await this.findOne(id);
+    if (!assistant) {
+      throw new Error('Asistan bulunamadı');
+    }
     Object.assign(assistant, attrs);
-    return await this.assistantRepo.save(assistant);
-  }
-
-  // Asistan sil
-  async remove(id: string) {
-    const assistant = await this.findOne(id);
-    return await this.assistantRepo.remove(assistant);
+    return this.assistantRepo.save(assistant);
   }
 }

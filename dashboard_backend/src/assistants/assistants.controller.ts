@@ -1,46 +1,31 @@
-import { 
-  Body, 
-  Controller, 
-  Delete, 
-  Get, 
-  Param, 
-  Patch, 
-  Post 
-} from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards, Request, Patch, Param, Delete } from '@nestjs/common';
 import { AssistantsService } from './assistants.service';
-import { Assistant } from './assistant.entity'; // DOĞRU IMPORT BURASI
+import { AuthGuard } from '@nestjs/passport'; // JWT Koruması
 
 @Controller('assistants')
+@UseGuards(AuthGuard('jwt')) // <-- TÜM METODLARI KORU
 export class AssistantsController {
   constructor(private readonly assistantsService: AssistantsService) {}
 
   @Get()
-  getAll() {
-    // Service'deki metod ismi 'findAll'
-    return this.assistantsService.findAll();
-  }
-
-  @Get('/:id')
-  getOne(@Param('id') id: string) {
-    // Service'deki metod ismi 'findOne'
-    return this.assistantsService.findOne(id);
+  findAll(@Request() req) {
+    // Token'dan gelen userId'yi gönderiyoruz
+    return this.assistantsService.findAll(req.user.userId);
   }
 
   @Post()
-  createAssistant(@Body() body: Partial<Assistant>) {
-    return this.assistantsService.create(body);
+  create(@Body() body, @Request() req) {
+    // Body + UserId
+    return this.assistantsService.create(body, req.user.userId);
   }
 
-  @Patch('/:id')
-  updateAssistant(
-    @Param('id') id: string,
-    @Body() body: Partial<Assistant>,
-  ) {
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() body) {
     return this.assistantsService.update(id, body);
   }
 
-  @Delete('/:id')
-  deleteAssistant(@Param('id') id: string) {
-    return this.assistantsService.remove(id);
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.assistantsService.delete(id);
   }
 }
