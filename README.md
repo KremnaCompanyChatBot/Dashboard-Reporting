@@ -170,6 +170,3 @@ Hem kullanıcı mesajı hem AI cevabı bu event ile gelir.
 * `src/chats` → Mesajlaşma mantığı ve WebSocket Gateway
 * `src/analytics` → Analitik ve raporlama sorguları
 
-```
-
-```
