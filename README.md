@@ -1,7 +1,3 @@
-Aşağıda **tek parça**, **kesintisiz** ve **tek seferde kopyalanabilir** şekilde hazırlanmış `README.md` içeriğini veriyorum.
-Hiçbir yerde blok bozulması yoktur; tamamını seçip doğrudan `dashboard_backend/README.md` içine yapıştırabilirsin.
-
-````markdown
 # Kremna AI - Dashboard Backend API
 
 Bu proje, Kremna AI Dashboard ve Widget uygulamaları için geliştirilmiş RESTful API ve WebSocket sunucusudur.  
