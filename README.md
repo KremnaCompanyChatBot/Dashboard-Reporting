@@ -166,11 +166,4 @@ Hem kullanıcı mesajı hem AI cevabı bu event ile gelir.
 
 ```
 
-İstersen bir sonraki adımda:
-- Widget tarafı için **ayrı README**
-- Swagger / OpenAPI dokümantasyonu
-- Production `.env.example`
-- Docker + docker-compose dokümantasyonu
-
-hazırlayabilirim.
 ```
