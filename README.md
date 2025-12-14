@@ -38,7 +38,6 @@ DB_DATABASE=nest_dashboard_db
 PORT=3000
 JWT_SECRET=gizli_anahtar_buraya
 MISTRAL_API_KEY=mistral_api_key_buraya
-GEMINI_API_KEY=gemini_api_key_buraya
 ```
 
 ### 4. Başlatma
